@@ -11,6 +11,7 @@ from transformers import AutoTokenizer, AutoModel, pipeline
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 import PyPDF2
+from groq import Groq
 # Ensure that nltk data is downloaded
 import nltk
 nltk.download('punkt')
@@ -71,10 +72,10 @@ class DataProcessor:
             #print('step8')
             print(' '.join(re.findall(r'\b[A-Z]+(?=\b|:)', sentence)))
             heading = ' '.join(re.findall(r'\b[A-Z]+(?=\b|:)', sentence))
-            print('heading 1:',heading)
+            #print('heading 1:',heading)
             #heading = ''.join([match + ':' if ':' in sentence[sentence.index(match) + len(match)] == ':' else match for match in heading])
             heading = ''.join([match + ':' if (sentence.index(match) + len(match) < len(sentence) and sentence[sentence.index(match) + len(match)] == ':') else match for match in heading])
-            print('heading 2:',heading)
+            #print('heading 2:',heading)
             sentence = sentence.replace(heading, "")
             #print('step8A')
             if ''.join(sentence.split()) and all(char == '.' for char in ''.join(sentence.split())):
@@ -112,14 +113,14 @@ class DataProcessor:
         
         
         # Debugging: Check the DataFrame after processing
-        print("DataFrame after applying heading labels:")
-        print(self.df[['Headings', 'Text']].head())
+        #print("DataFrame after applying heading labels:")
+        #print(self.df[['Headings', 'Text']].head())
 
     def _print_heading_pivot(self):
         # Create a pivot table showing the count of rows for each heading
         pivot_df = self.df.pivot_table(index='Headings', values='Text', aggfunc='count')
         print("Pivot Table of Headings vs Count of Text Rows:")
-        print(pivot_df)
+        #print(pivot_df)
 
 class FAISSIndexManager:
     def __init__(self, model_name,path, stage=None,df=None):
@@ -291,6 +292,8 @@ class RAGQueryManager:
         # Create a DataFrame with only the first occurrence of each unique sentence
         unique_indices = list(unique_sentence_indices.values())
         answer_df = answer_df.loc[unique_indices].reset_index(drop=True)
+        #print('embedding_result',answer_df['Text'])
+        #answer_df.to_csv('answer_df_csv.csv',index=False)
         answer_df[['Answer', 'cosine_sim']] = answer_df.apply(lambda row: pd.Series(self.get_answer_or_context(row['Text'], question)),axis=1)
         answer_df = answer_df[answer_df['cosine_sim'] > 0.6]
         answer_df = answer_df.sort_values(by='cosine_sim', ascending=False).reset_index(drop=True)
@@ -317,6 +320,7 @@ class RAGQueryManager:
         # Concatenate all filtered dataframes
         answer_df = pd.concat(filtered_dfs).reset_index(drop=True)
         
+        #print(answer_df)
         #answer_df['Answer'] = answer_df['Text'].apply(lambda sentence: self.get_answer_or_context(sentence, question))
         
         print("Current counts:", current_counts)
@@ -324,6 +328,83 @@ class RAGQueryManager:
 
         return answer_df
 
+def text_to_html(text):
+    # Split text into sections based on double newlines
+    sections = text.split('\n\n')
+
+    # Create the base HTML structure
+    html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Instructions for Working with High-Voltage Electrical Systems</div>
+"""
+
+    # Process each section
+    for section in sections:
+        section = section.strip()
+        if section.startswith('**'):
+            # It's a header
+            header = section.strip('* ').strip()
+            html += f'    <div class="header">{header}</div>\n'
+        elif section.startswith('*'):
+            # It's a bullet point
+            bullet_point = section.strip('* ').strip()
+            html += f'    <p>{bullet_point}</p>\n'
+        elif re.match(r'^\d+\.\s', section):
+            # It's a numbered list item
+            # Split by numbers followed by a period and space
+            items = re.split(r'(?=\d+\.\s)', section)
+            for item in items:
+                item = item.strip()
+                if item:  # Avoid adding empty strings
+                    html += f'    <p>{item}</p>\n'
+        elif section:
+            # It is a concluding paragraph or some other text
+            html += f'    <p>{section}</p>\n'
+
+    # Close the body and html tags
+    html += """</body>
+</html>
+"""
+    return html
+
+
+def get_chat_completion(prompt, model="llama3-70b-8192"):
+    client = Groq(
+        api_key='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',
+    )
+
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        model=model,
+    )
+
+    # Access the content directly from the message object
+    return chat_completion.choices[0].message.content
 
 def main(stage,faiss_model_names,qa_model_names,path,source_filename_pdf,question=None):
     result=pd.DataFrame()
@@ -361,8 +442,12 @@ def main(stage,faiss_model_names,qa_model_names,path,source_filename_pdf,questio
         if result is None or result.empty:
             final_answers = "The question is out of scope. please try with questions related to the document."
         else:
-            final_answers = ' '.join(result['Answer'].tolist()) +'.'
-        print(final_answers)
+            response = ' '.join(result['Answer'].tolist()) +'.'
+            text = get_chat_completion(response)
+            final_answers = text_to_html(text)
+
+
+        #print(final_answers)
     return final_answers
 
 '''
