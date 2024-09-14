@@ -14,6 +14,7 @@ import PyPDF2
 from groq import Groq
 # Ensure that nltk data is downloaded
 import nltk
+import csv
 nltk.download('punkt')
 
 class PDFProcessor:
@@ -293,7 +294,10 @@ class RAGQueryManager:
         unique_indices = list(unique_sentence_indices.values())
         answer_df = answer_df.loc[unique_indices].reset_index(drop=True)
         #print('embedding_result',answer_df['Text'])
-        #answer_df.to_csv('answer_df_csv.csv',index=False)
+
+        # JM to export file for report -- embedding
+        #answer_df.to_csv('embedding_layer.csv',index=False)
+
         answer_df[['Answer', 'cosine_sim']] = answer_df.apply(lambda row: pd.Series(self.get_answer_or_context(row['Text'], question)),axis=1)
         answer_df = answer_df[answer_df['cosine_sim'] > 0.6]
         answer_df = answer_df.sort_values(by='cosine_sim', ascending=False).reset_index(drop=True)
@@ -318,6 +322,9 @@ class RAGQueryManager:
         #filtered_dfs.append(answer_df[answer_df['Headings'] == "INSTRUCTION"].head(total_instruction))
         filtered_dfs.append(answer_df[answer_df['Headings'] == "INSTRUCTION"].head(total_instruction))
         # Concatenate all filtered dataframes
+        #filename = 'dilbert_output.csv'
+
+        # Write the list to a CSV file
         answer_df = pd.concat(filtered_dfs).reset_index(drop=True)
         
         #print(answer_df)
@@ -442,6 +449,8 @@ def main(stage,faiss_model_names,qa_model_names,path,source_filename_pdf,questio
         if result is None or result.empty:
             final_answers = "The question is out of scope. please try with questions related to the document."
         else:
+            # JM to export file for report -- dilbert --
+            #result.to_csv('dilbert_output.csv',index=False)
             response = ' '.join(result['Answer'].tolist()) +'.'
             text = get_chat_completion(response)
             final_answers = text_to_html(text)

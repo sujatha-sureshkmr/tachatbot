@@ -1,0 +1,18 @@
+You: How to remove high-voltage harness?
+llm response:
+Instructions for Working with High-Voltage Electrical Systems
+It appears to be a set of instructions for working with high-voltage electrical systems, specifically with Li-ion batteries and battery controllers. Here's a breakdown of the steps:
+Precautions
+Wear insulated protective gear and use insulated tools to prevent electric shock.
+Removing components
+Remove the service plug to prevent electric shock. * Remove the vehicle communications harness and voltage detection harness. * Remove the Li-ion battery controller. * Disconnect the high-voltage harness engagement detection switch harness connector. * Disconnect the PTC heater harness connector.
+Responsibility
+Clearly identify the persons responsible for high-voltage work.
+Installing components
+Install the bus bar to the correct position with extreme caution. * Put on insulating protective gear to prevent electric shock. * Install the Li-ion battery controller.
+Securing components
+Remove the mounting nuts and bolt. * Remove the bus bar nut caps.
+Reassembly
+If the battery pack is to be disassembled, remove the battery pack upper case. * Invert the service plug switch bracket. * Close the bus bar cover.
+Important
+Be sure to wear insulated protective gear and use insulated tools throughout the process. * Put the removed service plug in a pocket to prevent it from coming into contact with the terminals.

@@ -1,0 +1,23 @@
+index,Headings,Text,result,Answer,cosine_sim
+52,DANGER, •  There is the danger of electric shock caused by contact with the terminals.,,contact with the terminals,0.6271608
+36,WARNING," To prevent electric shock, wear insulated protective gear and use insulated tools.",," To prevent electric shock, wear insulated protective gear and use insulated tools.",0.6976816
+82,WARNING, Install the Li-ion battery controll er immediately before installing the battery pack upper case.,,Install the Li-ion battery controll er immediately before installing the battery pack,0.6707864
+3,WARNING, • Be sure to remove the service plug in order to shut  off the high voltage circuits before performing inspection or maintenance of hi gh voltage system harnesses and parts.,,remove the service plug,0.62905204
+73,INSTRUCTION,20.Remove the vehicle communications harness and voltage detection harness.,,Remove the vehicle communications harness and voltage detection harness,0.7464589
+27,INSTRUCTION,2.Remove Li-ion battery controller.,,Remove Li-ion battery controller,0.7284497
+6,INSTRUCTION,• Clearly identify the persons responsible for high voltage work and ensure that other persons do not touch the vehicle.,,Clearly identify the persons responsible for high voltage work,0.72059655
+30,INSTRUCTION,Disconnect the high-voltage harness engagement detection switch harness connector .,,Disconnect the high-voltage harness engagement detection switch harness connector,0.72040284
+37,INSTRUCTION,6.Disconnect the PTC heater harness connector .,,Disconnect the PTC heater harness connector,0.71423006
+5,INSTRUCTION,• Be sure to put on insulating protective gear be fore beginning work on the high voltage system.,,put on insulating protective gear,0.712668
+41,INSTRUCTION,"8.Disconnect the vehicle communications harness connector , connector clips , and Li-ion battery heater harness connector WARNING: To prevent electric shock, wear insulated protective gear and use insulated tools.",,"To prevent electric shock, wear insulated protective gear and use insulated tools",0.7022086
+81,INSTRUCTION,"- Since the correct installation posi tion for the bus bar connected to  both front module stacks is com- monly-confused with the wrong posi tion , install the bus bar to th e correct position  with extreme caution.",,install the bus bar to th e correct position  with extreme caution,0.69875646
+4,INSTRUCTION,• Be sure to put the removed service plug in pocket and carry it or store it in a tool box or other con- tainer so that another person does not accident ally connect it while work is in progress.,,put the removed service plug in pocket,0.6986511
+10,INSTRUCTION,CAUTION: There is the possibility of a malfunction occurring if the vehicle is changed to READY status while the service plug is removed.,,service plug is removed,0.69518435
+70,INSTRUCTION,"19.Remove the mounting nuts , then remove high-voltage harness  and .",,Remove the mounting nuts,0.69471383
+35,INSTRUCTION,5.Remove the mounting bolt  and disconnect the high-voltage harness connector from the connector flange.,,Remove the mounting bolt,0.6944657
+42,INSTRUCTION,9.Remove the bus bar nut caps .,,Remove the bus bar nut caps,0.6894034
+33,INSTRUCTION,Be sure to wear insulated pro- tective gear and use insulated tools.,,Be sure to wear insulated pro- tective gear and use insulated tools.,0.68731284
+66,INSTRUCTION,"18.Invert the service plug switch bracket and remove the high-volt- age harness mounting bolt , current sensor mounting bolt , and the connector , then remove the service plug switch bracket .",,Invert the service plug switch bracket,0.6870107
+55,INSTRUCTION,"• Because of the danger of electric shock, be su re to close the bus bar cover after removing the bus bar.",,close the bus bar cover,0.68321323
+9,INSTRUCTION,"• If the battery pack is to be disassembled, be sure to remove the Li-ion battery controller for prevent- ing electric shock, fire, and damage to parts.",,If the battery pack is to be disassembled,0.68004763
+26,INSTRUCTION,Remove the battery pack upper case.,,Remove the battery pack upper case,0.6775899
