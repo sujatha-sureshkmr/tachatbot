@@ -263,11 +263,11 @@ class RAGQueryManager:
 
         # Label count requirements for a total of 22 retrievals
         label_counts = {
-            "2": 10,  # 10 instructions
-            "1": 3,   # 3 danger
-            "4": 3,   # 3 warning
-            "0": 3,   # 3 caution
-            "3": 3    # 3 precaution
+            "2": 7,  # 10 instructions
+            "1": 2,   # 3 danger
+            "4": 2,   # 3 warning
+            "0": 2,   # 3 caution
+            "3": 2    # 3 precaution
         }
         collected_counts = {label: 0 for label in label_counts}
         # Filter out indices with negative values
