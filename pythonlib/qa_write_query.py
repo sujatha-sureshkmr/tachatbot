@@ -418,7 +418,7 @@ def get_chat_completion(prompt, model="llama3-70b-8192"):
                 - Ensure the components are listed separately by new line under the section: Components Involved in the Process.
                 - Ensure the response or instructions is structured in a clear, step-by-step manner.
                 - give the output in html code format
-                - Mark in red for the identified and matching components in the instrunctions.
+                - Mark in red font for the identified and matching components in all the places.
                 """,
 
             }
@@ -463,7 +463,7 @@ def main(stage,faiss_model_names,qa_model_names,path,source_filename_pdf,questio
         print('result.shape',result.shape)
         #print(result['Answer'])
         if result is None or result.empty:
-            final_answers = "The question is out of scope. please try with questions related to the document."
+            final_answers = "I dont understand your question. Can you please rephrase your question by adding components, are your trying to remove the component? etc."
         else:
             # JM to export file for report -- dilbert --
             #result.to_csv('dilbert_output.csv',index=False)

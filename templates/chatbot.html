@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{ url_for('index') }}">NUS Capstone 2024</a>
+        <a class="navbar-brand ps-3" href="{{ url_for('index') }}">PM 2024- Group 6</a>
 
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <div class="ui-widget">
                                     <label for="tags">Choose the suitable options and click submit</label></div><br>
-                                    <form method="post" action="/chatbot.html" enctype="multipart/form-data">
+                                    <form method="post" action="/chatbot.html" enctype="multipart/form-data" id="llm-form">
                                          <div class="form-group">
                                              <label for="product_type_manufactured_year">Choose Product:</label>
                                              <select id="product_type_manufactured_year" name="product_type_manufactured_year" class="form-control">
@@ -117,10 +117,10 @@
                                             
                                          </div>
                              
-                                         <button type="submit" name="extract" class="btn btn-success btn-lg btn-block">Load LLM</button>
+                                         <button type="submit" name="extract" class="btn btn-success btn-lg btn-block" id="load-llm-btn">Load LLM</button>
                                      </form>
                                     </br> </br>
-                            <div class="container mt-5">
+                            <div class="container mt-5" id="chat-container" style="display: none;">
                                 
                                 <div class="card">
                                     <div class="card-header">
@@ -139,7 +139,16 @@
                                     </div>
                                 </div>
                             </div>
-                        
+                            <script>
+                                document.getElementById('llm-form').addEventListener('submit', function(event) {
+                                    event.preventDefault(); // Prevent the default form submission
+                                    document.getElementById('chat-container').style.display = 'block'; // Show the chat container
+                                    // Optionally, you can still submit the form data via AJAX if needed
+                                    // For example, using jQuery AJAX:
+                                    // $.post('/chatbot.html', $(this).serialize());
+                                });
+                    
+                            </script>
                             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.min.js"></script>
                             <script>
