@@ -371,10 +371,12 @@ def text_to_html(text):
         if section.startswith('**'):
             # It's a header
             header = section.strip('* ').strip()
+            header = header.replace('*','').replace('\n', '<br>')
             html += f'    <div class="header">{header}</div>\n'
         elif section.startswith('*'):
             # It's a bullet point
             bullet_point = section.strip('* ').strip()
+            bullet_point = bullet_point.replace('*','').replace('\n', '<br>')
             html += f'    <p>{bullet_point}</p>\n'
         elif re.match(r'^\d+\.\s', section):
             # It's a numbered list item
@@ -383,9 +385,11 @@ def text_to_html(text):
             for item in items:
                 item = item.strip()
                 if item:  # Avoid adding empty strings
+                    item = item.replace('*','').replace('\n', '<br>')
                     html += f'    <p>{item}</p>\n'
         elif section:
             # It is a concluding paragraph or some other text
+            section = section.replace('*','').replace('\n', '<br>')
             html += f'    <p>{section}</p>\n'
 
     # Close the body and html tags
@@ -404,7 +408,17 @@ def get_chat_completion(prompt, model="llama3-70b-8192"):
         messages=[
             {
                 "role": "user",
-                "content": prompt,
+                  #"content": prompt,
+                "content": f"""
+                {prompt}
+                
+                Instructions:
+                - Summarize the key safety steps.
+                - Highlight the most critical precautions.
+                - Ensure the components are listed separately by either comma or new line under the section: **Components Involved in the Process**.
+                - Ensure the response or instructions is structured in a clear, step-by-step manner.
+                """,
+
             }
         ],
         model=model,
