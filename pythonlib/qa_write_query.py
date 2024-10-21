@@ -401,7 +401,8 @@ def text_to_html(text):
 
 def get_chat_completion(prompt, model="llama3-70b-8192"):
     client = Groq(
-        api_key='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',
+        #api_key='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',
+        api_key='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',
     )
 
     chat_completion = client.chat.completions.create(
