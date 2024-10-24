@@ -32,7 +32,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Overview
                         </a>
-                        <a class="nav-link" href="https://www.youtube.com/watch?v=43cFbTThXIM">
+                        <a class="nav-link" href="https://www.youtube.com/watch?v=58-1ieDJq8c">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Demo
                         </a>
@@ -91,54 +91,40 @@
 
 
                             </div>
-                            <h1>Introduction</h1>
+                          
+                                         
+                            <h2>Project Overview</h2>
+                            <p>This project outlines the development of an intelligent system designed to process and retrieve information from electric vehicle (EV) battery manuals. Sponsored by the Advanced Remanufacturing and Technology Centre (ARTC), the system addresses challenges engineers face when navigating complex and lengthy Original Equipment Manufacturer (OEM) manuals. By providing quick access to critical information, the system aims to improve efficiency and reduce errors during the disassembly and maintenance of end-of-life EV batteries.</p>
 
-                            <h2>Overview</h2>
-                            <p>
-                                The engineering sector is undergoing a significant transformation as sustainability becomes a central focus of development and innovation. Among the myriad of high-value products, electric vehicle (EV) batteries stand out due to their essential role in the shift towards clean energy transportation. As demand for EVs rises, so does the need for effective remanufacturing, repurposing, and recycling strategies. These processes not only extend the lifecycle of critical components but also contribute to environmental conservation by minimizing waste.
-                            </p>
-                        
-                            <h2>Challenges in Maintenance</h2>
-                            <p>
-                                Despite the growing urgency for efficient maintenance and servicing of EV batteries, engineers and technicians face considerable challenges. The complexity of service manuals—often dense with technical jargon, intricate diagrams, and numerous operational protocols—can create barriers to effective knowledge application. Navigating these manuals can lead to inefficiencies, increased maintenance times, and potential safety risks, ultimately hindering progress toward more sustainable engineering practices.
-                            </p>
-                        
-                            <h2>Project Objective</h2>
-                            <p>
-                                This project seeks to mitigate these challenges by developing a sophisticated knowledge database that extracts and organizes information from existing engineering manuals. Utilizing advanced natural language processing (NLP) techniques for text analysis and vision system processing for image interpretation, our solution will streamline the maintenance process for EV batteries. The goal is to create an intuitive, user-friendly web application that allows users to query the database easily, retrieving relevant information and visual aids that enhance their understanding of complex components.
-                            </p>
-                        
-                            <h2>Technical Approach</h2>
-                            <p>
-                                The project begins with comprehensive data extraction from engineering manuals, primarily in PDF format. This process involves two critical components: text extraction and image extraction.
-                            </p>
-                            <img src="../static/vendor/img/img_techical_overview.png" alt="Usecase" class="center"/>
-                            <h3>Data Extraction</h3>
-                            <p>
-                                Utilizing PDF parsing libraries, we extract text content from the manuals and simultaneously extract images embedded within the PDF. This ensures that all relevant information is captured accurately and stored systematically for subsequent processing.
-                            </p>
-                            
-                            <h3>Image Processing</h3>
-                            <p>
-                                We employ vision system processing to identify legend images that accompany main diagrams, utilizing object detection algorithms and optical character recognition (OCR) to extract and correlate textual information from the images. Additionally, segmentation techniques will break down complex images into identifiable sections, linking them to textual descriptions.
-                            </p>
-                            <img src="../static/vendor/img/Image_processing_overview.png" alt="Usecase" class="center"/>
-                            <h3>Text Processing</h3>
-                            <p>
-                                The extracted text undergoes rigorous processing, including sentence breakdown, cleaning, and named entity recognition (NER) to identify critical components, tools, and joints. The refined data is converted into vector embeddings to facilitate efficient searching and retrieval.
-                            </p>
-                            <img src="../static/vendor/img/text_processing_overview.png" alt="Usecase" class="center"/>
-                            <h3>Integration of Large Language Model (LLM)</h3>
-                            <p>
-                                A chatbot interface will enhance user interaction with the knowledge database. Users will input queries that are transformed into vector form, with a filtering mechanism ensuring the retrieval of contextually relevant results. Utilizing advanced pipelines for question answering and text generation, the system will generate coherent, human-readable responses tailored to the user’s needs.
-                            </p>
-                            <img src="../static/vendor/img/img_llm_output_description.png" alt="Usecase" class="center"/>
-                            
-                            <h2>Deliverables</h2>
-                            <p>
-                                The deliverable is a robust web-based application that not only processes engineering manuals but also serves as a vital resource for maintenance professionals. Key functionalities will include user uploads of maintenance manuals, comprehensive document processing (both text and images), and an interactive querying system. By bridging the gap between complex technical documentation and practical application, this project aims to enhance the efficiency and effectiveness of maintenance processes in the engineering sector, supporting its broader commitment to sustainability and innovation.
-                            </p>
-                            
+                            <h2>Natural Language Processing and System Approach</h2>
+                            <p>The system employs advanced Natural Language Processing (NLP) techniques, including a <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline, to efficiently process the manuals. Key steps include:</p>
+                            <ul>
+                                <li><strong>Text Extraction and Cleaning:</strong> Extracting text from PDF manuals, splitting it into individual sentences, identifying sections like warnings and instructions, and preparing the text for analysis.</li>
+                                <li><strong>Vector Embeddings:</strong> Converting processed data into vector embeddings, which represent the context and meaning of the text, enabling efficient search and retrieval.</li>
+                                <li><strong>Conversational Interface:</strong> Engineers interact with the system via a conversational interface where they ask questions in natural language. The system matches these queries to the most relevant sections of the manual and provides contextually accurate responses.</li>
+                            </ul>
+
+                            <h2>Business Problem Statement</h2>
+                            <p>The growing demand for <strong>remanufacturing, repurposing, and recycling</strong> of end-of-life products like EV batteries has created a need for engineers to refer to complex OEM manuals containing critical disassembly and safety information. These manuals are often difficult to navigate, making the process time-consuming and error-prone. As a result, operational inefficiencies arise, and there is an increased risk of mistakes during disassembly and maintenance. An intelligent system is needed to enable engineers to easily access and query relevant information, improving productivity and reducing errors.</p>
+
+                            <h2>Technical Problem Statement</h2>
+                            <p>Engineering manuals are often lengthy and text-heavy, making it challenging for engineers to quickly find specific disassembly instructions or safety procedures. The system, using a <strong>Retrieval-Augmented Generation (RAG) pipeline</strong>, allows engineers to upload manuals and query specific information in real-time, offering accurate responses to questions such as "What are the potential dangers during removal of the service plug?" This approach enhances both operational efficiency and safety.</p>
+
+                            <h2>System Design and Approach</h2>
+                       
+                        <img src="../static/vendor/img/img_ta_project.png" alt="Usecase" class="center"/>
+                     
+                            <p>The system's architecture consists of four key modules:</p>
+                            <ul>
+                                <li><strong>Text Extraction and Processing:</strong> Users upload the engineering manual, which is then pre-processed. This involves text extraction, sentence splitting, cleaning, and structuring.</li>
+                                <li><strong>Vector Embeddings and Knowledge Database Creation:</strong> A vector embedding model is used to create sentence-level embeddings, which are then indexed to form the knowledge database. Pre-trained and fine-tuned models are evaluated for this purpose.</li>
+                                <li><strong>RAG Pipeline:</strong> The Retrieval-Augmented Generation pipeline is implemented to answer users' queries. The system's retrieval methodology and the chosen language model ensure accurate and contextually relevant responses.</li>
+                                <li><strong>User Interface and Query Processing:</strong> The entire system is encapsulated within a conversational user interface. Engineers can upload manuals and ask queries related to specific manual content.</li>
+                            </ul>
+
+
+                            <p>The intelligent system provides a practical solution to the inefficiencies engineers face when working with technical manuals, offering significant improvements in productivity, safety, and accuracy.</p>
+
                         </div>
 
                     </div>
